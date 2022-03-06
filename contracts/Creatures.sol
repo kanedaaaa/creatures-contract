@@ -42,6 +42,9 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
         as: safeTrasnfer should return positive success, but im
         pretty sure if it fails, function will fail as well, which
         is unlikely to happen at first place.
+        
+        also, we could use totalSupply() from ERC721A instead of 
+        incrementing count manually.
      */
     function mintCreature(uint256[] memory _ids) public {
         require(count <= MAX_SUPPLY, "Creatures.mintCreature: TOKEN_LIMIT_ERROR");
