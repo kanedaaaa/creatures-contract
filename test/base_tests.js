@@ -36,7 +36,7 @@ contract("Creatures - Base Test", async (accounts) => {
       userSwampBalanceBefore = res.toString();
     })
 
-    await creatures.mintCreature([0,1,2], { from: accounts[1] });
+    await creatures.mintCreature([0,1], { from: accounts[1] });
 
     await croakens.balanceOf(accounts[1]).then(res => {
       userBalanceAfter = web3.utils.fromWei(res.toString(), "ether");
@@ -51,7 +51,7 @@ contract("Creatures - Base Test", async (accounts) => {
       });
 
     assert.equal(userBalanceAfter, userBalanceBefore - 450);
-    assert.equal(userSwampBalanceAfter, userSwampBalanceBefore - 3);
+    assert.equal(userSwampBalanceAfter, userSwampBalanceBefore - 2);
     assert.equal(owner, accounts[1]);
   })
 

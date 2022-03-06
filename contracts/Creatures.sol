@@ -13,7 +13,7 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
 
     uint256 MAX_SUPPLY = 2400;
     uint256 ERC20_BURN_AMOUNT = 450 * (10**18);
-    uint256 ERC721_BURN_AMOUNT = 3;
+    uint256 ERC721_BURN_AMOUNT = 2;
 
     string public BEGINNING_URI = "";
     string public ENDING_URI = "";

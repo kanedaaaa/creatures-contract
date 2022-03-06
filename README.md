@@ -4,7 +4,7 @@
 
 ## RULES
 
-User has to burn 450 ERC20 Croakens tokens, and 3 ERC721 Swampverse NFT to mint 1 ERC721A Creature NFT.
+User has to burn 450 ERC20 Croakens tokens, and 2 ERC721 Swampverse NFT to mint 1 ERC721A Creature NFT.
 
 
 ## Project Structure
