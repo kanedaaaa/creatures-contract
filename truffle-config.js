@@ -13,7 +13,7 @@ module.exports = {
       network_id: "*", // Any network (default: none)
     },
 
-    rinkeby: {
+    kovan: {
       provider: () => new HDWalletProvider(mnemonic, `wss://kovan.infura.io/ws/v3/${infura}`),
       network_id: 42,
       confirmations: 2,
