@@ -21,3 +21,7 @@ like working with more organized way, thus using interfaces.
 One major limitation was fact that original Swampverse contract has no publicly exposed `_burn` function, thus it's impossible
 to burn tokens properly or send them to `address(0)`. Thus we are sending it to `0x00...dEaD`, which is fine but not for Opensea,
 since it wont remove tokens sent to mentioned address from collection pages, hope they will change this. Nothing tragical tho. 
+
+## Bugs
+
+I had hard time verifying mock Croakens and Swampverse contracts on Kovan blockchain, due to API rate error. Will try it again eventually.
