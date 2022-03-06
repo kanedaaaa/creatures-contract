@@ -1,3 +1,3 @@
 #!/bin/bash
 
-yarn truffle migrate --reset --network rinkeby >> deployment.log 
+yarn truffle migrate --reset --network kovan >> deployment.log 
