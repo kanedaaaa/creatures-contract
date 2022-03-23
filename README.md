@@ -27,8 +27,7 @@ since it wont remove tokens sent to mentioned address from collection pages, hop
 ## TODO
 
 - [x] add enable/disable switch on mint function
-- [ ] update deployed contract (due to painful process of verifying using etherscan apis and getting contracts ready for UI, 
-i might as well avoid this step since its very simple)
+- [ ] add croakens approve and swampverse setApproveForAll inside of contract 
 - [ ] add more test cases
 - [ ] maybe make error messages more user friendly?
 - [ ] go back to old ERC721A commit (as mentioned in audit, huge thing, will do later)
