@@ -20,6 +20,8 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
 
     address public blackHole = 0x000000000000000000000000000000000000dEaD;
 
+    bool public mintingAllowed = false;
+
     ICroakens public croakens;
     ISwampverse public swampverse;
 
@@ -37,6 +39,7 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
         @param _ids => array of swampverse ids to be burned
      */
     function mintCreature(uint256[] memory _ids) public {
+        require(mintingAllowed, "Creatures.mintCreature: MINTING_NOT_ALLOWED");
         require(_totalMinted() <= MAX_SUPPLY, "Creatures.mintCreature: TOKEN_LIMIT_ERROR");
         require(_ids.length == ERC721_BURN_AMOUNT, "Creatures.mintCreature: WRONG_IDS_LENGTH");
         require(croakens.balanceOf(msg.sender) >= ERC20_BURN_AMOUNT, "Creatures.mintCreature: INSUFFICIENT_CROAKENS");
@@ -116,6 +119,15 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
         if (_mode == 1) croakens = ICroakens(_address);
         else if (_mode == 2) swampverse = ISwampverse(_address);
         else revert('Creatures.setAddresses: WRONG_MODE');
+    }
+
+    /**
+        @notice allow minting
+
+        @param _value => true or false
+     */
+    function toggleMinting(bool _value) public onlyOwner {
+        mintingAllowed = _value;
     }
 
     function tokenURI(uint256 tokenId)

@@ -27,6 +27,8 @@ contract("Creatures - Base Test", async (accounts) => {
     await swampies.setApprovalForAll(creatures.address, true, {
       from: accounts[1],
     });
+
+    await creatures.toggleMinting(true, { from: accounts[0] });
   });
 
   it("Should mint creature according to rules", async () => {

@@ -1,7 +1,5 @@
 # creatures-contract
 
-**Very very exchausted to write long README, so here is the basic rules of minting and project structure:**
-
 ## RULES
 
 User has to burn 450 ERC20 Croakens tokens, and 2 ERC721 Swampverse NFT to mint 1 ERC721A Creature NFT.
@@ -24,4 +22,13 @@ since it wont remove tokens sent to mentioned address from collection pages, hop
 
 ## Bugs
 
-I had hard time verifying mock Croakens and Swampverse contracts on Kovan blockchain, due to API rate error. Will try it again eventually.
+`none`
+
+## TODO
+
+-[x] add enable/disable switch on mint function
+-[ ] update deployed contract (due to painful process of verifying using etherscan apis and getting contracts ready for UI, 
+i might as well avoid this step since its very simple)
+-[ ] add more test cases
+-[ ] maybe make error messages more user friendly?
+-[ ] go back to old ERC721A commit (as mentioned in audit, huge thing, will do later)
