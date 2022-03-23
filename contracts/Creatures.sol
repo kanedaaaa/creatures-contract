@@ -39,6 +39,7 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
     function mintCreature(uint256[] memory _ids) public {
         require(_totalMinted() <= MAX_SUPPLY, "Creatures.mintCreature: TOKEN_LIMIT_ERROR");
         require(_ids.length == ERC721_BURN_AMOUNT, "Creatures.mintCreature: WRONG_IDS_LENGTH");
+        require(croakens.balanceOf(msg.sender) >= ERC20_BURN_AMOUNT, "Creatures.mintCreature: INSUFFICIENT_CROAKENS");
 
         croakens.burn(msg.sender, ERC20_BURN_AMOUNT);
 
@@ -60,27 +61,31 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
     /**
         @param _mode: 
         1 - replace beinning of URI
-        2 (or anything else) - replce ending of URI
+        2 - replce ending of URI
+        anything else - will result in revert()
 
         @param _new_uri: corresponding value
      */
     function setURI(uint256 _mode, string memory _new_uri) public onlyOwner {
         if (_mode == 1) BEGINNING_URI = _new_uri;
-        else ENDING_URI = _new_uri;
+        else if (_mode == 2) ENDING_URI = _new_uri;
+        else revert('Creatures.setURI: WRONG_MODE');
     }
 
     /**
         @param _mode:
         1 - change max_supply 
         2 - change Croakens burn amount
-        3 (or anything else) - change swampverse burn amount
+        3 - change swampverse burn amount
+        anythign else - will result in revert()
 
         @param _value: corresponding value
      */
     function setUintInfo(uint256 _mode, uint256 _value) public onlyOwner {
         if (_mode == 1) MAX_SUPPLY = _value;
         else if (_mode == 2) ERC20_BURN_AMOUNT = _value * (10**18);
-        else ERC721_BURN_AMOUNT = _value;
+        else if (_mode == 3) ERC721_BURN_AMOUNT = _value;
+        else revert('Creatures.setUintInfo: WRONG_MODE');
     }
 
     /**
@@ -99,6 +104,20 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
         blackHole = _value;
     }
 
+    /**
+        @notice set croakens and swampverse addresses
+        
+        @param _mode:
+        1 - set croakens address
+        2 - set swampverse address
+        anythign else - will result in revert()
+     */
+    function setAddresses(uint8 _mode, address _address) public onlyOwner {
+        if (_mode == 1) croakens = ICroakens(_address);
+        else if (_mode == 2) swampverse = ISwampverse(_address);
+        else revert('Creatures.setAddresses: WRONG_MODE');
+    }
+
     function tokenURI(uint256 tokenId)
         public
         view
@@ -112,3 +131,5 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
             );
     }
 }
+
+

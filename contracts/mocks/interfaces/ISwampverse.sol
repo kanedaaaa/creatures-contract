@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 interface ISwampverse {
-    function mint(address user, uint256 amount) external;
+    function mint(uint256 amount, address user) external;
     function safeTransferFrom(
         address from,
         address to,

@@ -12,47 +12,48 @@ contract("Creatures - Base Test", async (accounts) => {
 
   beforeEach(async () => {
     croakens = await Croakens.new();
-		swampies = await Swampies.new();
+    swampies = await Swampies.new();
     creatures = await Creatures.new(croakens.address, swampies.address);
 
     web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 
-    await croakens.mint(web3.utils.toWei("1000", "ether"), {from: accounts[1]});
+    await croakens.mint(accounts[1], web3.utils.toWei("1000", "ether"));
     await croakens.approve(
       creatures.address,
       web3.utils.toWei("1000", "ether"),
       { from: accounts[1] }
     );
-    await swampies.mint(10, { from: accounts[1] });
-    await swampies.setApprovalForAll(creatures.address, true, { from: accounts[1] });
+    await swampies.mint(10, accounts[1]);
+    await swampies.setApprovalForAll(creatures.address, true, {
+      from: accounts[1],
+    });
   });
 
   it("Should mint creature according to rules", async () => {
-    await croakens.balanceOf(accounts[1]).then(res => {
+    await croakens.balanceOf(accounts[1]).then((res) => {
       userBalanceBefore = web3.utils.fromWei(res.toString(), "ether");
-    })
+    });
 
-    await swampies.balanceOf(accounts[1]).then(res => {
+    await swampies.balanceOf(accounts[1]).then((res) => {
       userSwampBalanceBefore = res.toString();
-    })
+    });
 
-    await creatures.mintCreature([0,1], { from: accounts[1] });
+    await creatures.mintCreature([0, 1], { from: accounts[1] });
 
-    await croakens.balanceOf(accounts[1]).then(res => {
+    await croakens.balanceOf(accounts[1]).then((res) => {
       userBalanceAfter = web3.utils.fromWei(res.toString(), "ether");
     });
 
-    await swampies.balanceOf(accounts[1]).then(res => {
+    await swampies.balanceOf(accounts[1]).then((res) => {
       userSwampBalanceAfter = res.toString();
     });
 
-    await creatures.ownerOf(0).then(res => {
+    await creatures.ownerOf(0).then((res) => {
       owner = res;
-      });
+    });
 
     assert.equal(userBalanceAfter, userBalanceBefore - 450);
     assert.equal(userSwampBalanceAfter, userSwampBalanceBefore - 2);
     assert.equal(owner, accounts[1]);
-  })
-
+  });
 });

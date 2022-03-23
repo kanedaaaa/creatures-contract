@@ -3,12 +3,11 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract FxERC20 is ERC20 {
+contract Croakens is ERC20 {
 
     constructor() ERC20('Croakens', 'C') {}
-
     
-    function mintForGames(address user, uint256 amount) public {
+    function mint(address user, uint256 amount) public {
         _mint(user, amount);
     }
 
