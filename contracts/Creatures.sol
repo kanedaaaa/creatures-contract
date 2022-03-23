@@ -23,8 +23,6 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
     ICroakens public croakens;
     ISwampverse public swampverse;
 
-    uint256 internal count;
-
     constructor(ICroakens _croakens, ISwampverse _swampverse)
         ERC721A("Creatures", "Creatures")
     {
@@ -37,14 +35,9 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
         and 450 croakens burn
 
         @param _ids => array of swampverse ids to be burned
-
-        @dev it might be smart to add some security checks, such
-        as: safeTrasnfer should return positive success, but im
-        pretty sure if it fails, function will fail as well, which
-        is unlikely to happen at first place.
      */
     function mintCreature(uint256[] memory _ids) public {
-        require(count <= MAX_SUPPLY, "Creatures.mintCreature: TOKEN_LIMIT_ERROR");
+        require(_totalMinted() <= MAX_SUPPLY, "Creatures.mintCreature: TOKEN_LIMIT_ERROR");
         require(_ids.length == ERC721_BURN_AMOUNT, "Creatures.mintCreature: WRONG_IDS_LENGTH");
 
         croakens.burn(msg.sender, ERC20_BURN_AMOUNT);
@@ -53,16 +46,12 @@ contract Creatures is ERC721A, ERC721ABurnable, Ownable {
             swampverse.safeTransferFrom(msg.sender, blackHole, _ids[x]);
         }
         _safeMint(msg.sender, 1);
-        count += 1;
     }
 
     /**
         @notice only way to properly burn nft
 
         @param _token_id => id of creature to be burned
-
-        @dev i need to test this if it works, since its ported
-        from ERC721A optional extension
      */
     function burnToken(uint256 _token_id) public {
         burn(_token_id);
