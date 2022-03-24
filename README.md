@@ -22,12 +22,10 @@ since it wont remove tokens sent to mentioned address from collection pages, hop
 
 ## Bugs
 
-`none`
+burn reverts
 
 ## TODO
 
 - [x] add enable/disable switch on mint function
-- [ ] add croakens approve and swampverse setApproveForAll inside of contract 
-- [ ] add more test cases
-- [ ] maybe make error messages more user friendly?
-- [ ] go back to old ERC721A commit (as mentioned in audit, huge thing, will do later)
+- [x] add croakens approve and swampverse setApproveForAll inside of contract 
+- [x] add more test cases

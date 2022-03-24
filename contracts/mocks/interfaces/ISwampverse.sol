@@ -8,4 +8,5 @@ interface ISwampverse {
         address to,
         uint256 tokenId
     ) external;
+    function setApprovalForAll(address user, bool approved) external;
 }

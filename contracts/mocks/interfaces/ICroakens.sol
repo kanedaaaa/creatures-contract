@@ -5,4 +5,5 @@ interface ICroakens {
     function mint(address user, uint256 amount) external;
     function burn(address user, uint256 amount) external;
     function balanceOf(address user) external view returns (uint256);
+    function approve(address user, uint256 amount) external;
 }
