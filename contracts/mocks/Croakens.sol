@@ -10,8 +10,4 @@ contract Croakens is ERC20 {
     function mint(address user, uint256 amount) public {
         _mint(user, amount);
     }
-
-    function burn(address user, uint256 amount) public {
-        _burn(user, amount);
-    }
 }

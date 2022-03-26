@@ -6,7 +6,8 @@ const Web3 = require("web3");
 
 /**
  * accounts[0] - admin
- * accounts[1+] - user
+ * accounts[1] - user
+ * accounts[3] - burn address 
  */
 
 contract("Creatures - Happy/Sad testing", async (accounts) => {
@@ -24,6 +25,8 @@ contract("Creatures - Happy/Sad testing", async (accounts) => {
 
     await swampies.setApprovalForAll(creatures.address, true, { from: accounts[1] });
     await creatures.toggleMinting(true, { from: accounts[0] });
+    await creatures.changeBurnAddress(2, accounts[3], { from: accounts[0] });
+    await croakens.approve(creatures.address, web3.utils.toWei("450", "ether"), { from: accounts[1] });
   });
 
   it("should mint tokens", async () => {
@@ -97,21 +100,6 @@ contract("Creatures - Happy/Sad testing", async (accounts) => {
       "Creatures.mintCreature: MINTING_NOT_ALLOWED"
     );
   });
-
-  // it("burn test", async () => {
-  //   // await croakens.mint(accounts[1], web3.utils.toWei("1000", "ether"));
-  //   // await swampies.mint(10, accounts[1]);
-
-  //   // await creatures.mintCreature([0, 1], { from: accounts[1] });
-  //   // await creatures.burn(0, { from: accounts[1] });
-  //   // await creatures.ownerOf(0).then((res) => {
-  //   //   owner = res;
-  //   // });
-
-  //   // console.log(owner)
-
-  //   // ^ THIS FAILS, NEED TO ASK AROUND
-  // });
 
   it("should revert if user mints more than total supply", async () => {
     await croakens.mint(accounts[1], web3.utils.toWei("1000", "ether"));
